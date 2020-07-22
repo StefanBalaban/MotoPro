@@ -1,0 +1,19 @@
+<h1 id="tableLabel">Add a motorcycle</h1>
+<p *ngIf="!makes"><em>Loading...</em></p>
+<p>Fill the form to enter a new motorcycle</p>
+
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="makes">
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Name</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let make of makes">
+    <td>{{ make.id }}</td>
+    <td>{{ make.name }}</td>
+  </tr>
+  </tbody>
+</table>
