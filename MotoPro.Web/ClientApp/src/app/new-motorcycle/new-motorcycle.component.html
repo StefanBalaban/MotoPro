@@ -2,18 +2,35 @@
 <p *ngIf="!makes"><em>Loading...</em></p>
 <p>Fill the form to enter a new motorcycle</p>
 
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div style="display: flex; flex-direction: column">
 
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="makes">
-  <thead>
-  <tr>
-    <th>Id</th>
-    <th>Name</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let make of makes">
-    <td>{{ make.id }}</td>
-    <td>{{ make.name }}</td>
-  </tr>
-  </tbody>
-</table>
+    <label style="margin-top: 20px">
+      Motorcycle Make:
+      <select formControlName="make" style="display: block;">
+        <option *ngFor="let make of makes" [ngValue]="make"  style="display: block;">
+        </option>
+      </select>
+      
+    </label>
+
+    <label style="margin-top: 20px">
+      Contact Name:
+      <input type="text" formControlName="name" style="display: block;" />
+    </label>
+
+    <label style="margin-top: 20px">
+      Contact Phone:
+      <input type="text" formControlName="phone" style="display: block;" />
+    </label>
+
+    <label style="margin-top: 20px">
+      Contact Email:
+      <input type="text" formControlName="email" style="display: block;" />
+    </label>
+  </div>
+  
+
+  <button type="submit" [disabled]="!form.valid">Submit</button>
+
+</form>

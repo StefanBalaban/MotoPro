@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using MotoPro.Models.Database;
@@ -20,33 +21,36 @@ namespace MotoPro.Services
             _motoProDbContext = motoProDbContext;
             _mapper = mapper;
         }
-        public IEnumerable<Make> Get()
+        public async Task<IEnumerable<Make>> GetAsync()
         {
-            return _motoProDbContext.Makes.Include(x => x.Models).Select(x => _mapper.Map<Make>(x));
+            return _mapper.Map<List<Make>>(await _motoProDbContext.Makes.Include(x => x.Models).ToListAsync());
         }
 
-        public IEnumerable<Make> Get(Make t)
+        public async Task<IEnumerable<Make>> GetAsync(Make t)
         {
             if (t == null) throw new ArgumentNullException(nameof(t));
             throw new NotImplementedException();
         }
 
-        public Make Get(int id)
+        public async Task<Make> GetAsync(int id)
         {
-            return _mapper.Map<Make>(_motoProDbContext.Makes.SingleOrDefault(x => x.Id == id));
+            return _mapper.Map<Make>(await _motoProDbContext.Makes.SingleOrDefaultAsync(x => x.Id == id));
         }
 
-        public Make Post(Make t)
+        public async Task<Make> PostAsync(Make t)
+        {
+            var make = _mapper.Map<Models.Make>(t);
+            await _motoProDbContext.Makes.AddAsync(make);
+            await _motoProDbContext.SaveChangesAsync();
+            return _mapper.Map<Make>(make);
+        }
+
+        public async Task<Make> PutAsync(Make t)
         {
             throw new NotImplementedException();
         }
 
-        public Make Put(Make t)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Delete(Make t)
+        public async Task<bool> DeleteAsync(Make t)
         {
             throw new NotImplementedException();
         }

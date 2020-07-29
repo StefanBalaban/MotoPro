@@ -1,0 +1,12 @@
+<h1 id="tableLabel">Add a motorcycle make</h1>
+<p>Enter the motorcycle maker name</p>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <label style="margin-top: 20px">
+    Motorcycle Make Name:
+    <input type="text" formControlName="name"/>
+  </label>
+  <br />
+  <button type="submit" [disabled]="!form.valid">Submit</button>
+
+</form>

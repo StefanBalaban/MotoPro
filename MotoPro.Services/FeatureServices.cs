@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using MotoPro.Models.Database;
 using MotoPro.Services.Dto;
 using MotoPro.Services.Interfaces;
@@ -18,32 +20,32 @@ namespace MotoPro.Services
             _mapper = mapper;
             _motoProDbContext = motoProDbContext;
         }
-        public IEnumerable<Feature> Get()
+        public async Task<IEnumerable<Feature>> GetAsync()
         {
-            return _motoProDbContext.Features.Select(x => _mapper.Map<Feature>(x));
+            return _mapper.Map<List<Feature>>(await _motoProDbContext.Features.ToListAsync());
         }
 
-        public IEnumerable<Feature> Get(Feature t)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Feature Get(int id)
+        public async Task<IEnumerable<Feature>> GetAsync(Feature t)
         {
             throw new NotImplementedException();
         }
 
-        public Feature Post(Feature t)
+        public async Task<Feature> GetAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Feature Put(Feature t)
+        public async Task<Feature> PostAsync(Feature t)
         {
             throw new NotImplementedException();
         }
 
-        public bool Delete(Feature t)
+        public async Task<Feature> PutAsync(Feature t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> DeleteAsync(Feature t)
         {
             throw new NotImplementedException();
         }

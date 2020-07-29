@@ -8,10 +8,10 @@ namespace MotoPro.Web
     {
         public AutomaperProfile()
         {
-            CreateMap<Models.Feature, Feature>();
-            CreateMap<Models.Make, Make>();
-            CreateMap<Models.Model, Model>();
-            CreateMap<IEnumerable<Models.Make>, IEnumerable<Make>>();
+            CreateMap<MotoPro.Models.Feature, Feature>();
+            CreateMap<MotoPro.Models.Make, Make>();
+            CreateMap<Make, MotoPro.Models.Make>();
+            CreateMap<MotoPro.Models.Model, Model>();
         }
     }
 }

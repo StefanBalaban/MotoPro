@@ -1,5 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { FormGroup, FormControl } from '@angular/forms';
+
+
 
 @Component({
   selector: 'new-motorcycle',
@@ -8,21 +11,25 @@ import { HttpClient } from '@angular/common/http';
 export class AddMotorcycleComponent {
   public makes: IMake[];
   public models: IModel[];
+  
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     http.get<IMake[]>(baseUrl + 'api/makes').subscribe(result => {
       this.makes = result;
-      console.log(this.makes);
+      this.form.setValue({ make: this.makes[0] });
     }, error => console.error(error));
   }
-}
 
-interface IMake {
-  id: number;
-  name: string;
-  models: IMake[];
-}
-interface IModel {
-  id: number;
-  name: string;
+  form = new FormGroup({
+    make: new FormControl(''),
+    name: new FormControl(''),
+    phone: new FormControl(''),
+    email: new FormControl('')
+  });
+
+  
+
+  onSubmit() {
+    console.warn(this.form.value);
+  }
 }

@@ -23,9 +23,9 @@ namespace MotoPro.Web.Controllers
 
         // GET: api/<FeaturesApi>
         [HttpGet]
-        public IEnumerable<Feature> Get()
+        public async Task<IEnumerable<Feature>> Get()
         {
-            return _featureServices.Get();
+            return await _featureServices.GetAsync();
         }
 
         // GET api/<FeaturesApi>/5

@@ -24,22 +24,23 @@ namespace MotoPro.Web.Controllers
         }
         // GET: api/<MakesApi>
         [HttpGet]
-        public IEnumerable<Make> Get()
+        public async Task<IEnumerable<Make>> Get()
         {
-            return _makeServices.Get();
+            return await _makeServices.GetAsync();
         }
 
         // GET api/<MakesApi>/5
         [HttpGet("{id}")]
-        public Make Get(int id)
+        public async Task<Make> Get(int id)
         {
-            return _makeServices.Get(id);
+            return await _makeServices.GetAsync(id);
         }
 
         // POST api/<MakesApi>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<Make> Post([FromBody] Make make)
         {
+            return await _makeServices.PostAsync(make);
         }
 
         // PUT api/<MakesApi>/5

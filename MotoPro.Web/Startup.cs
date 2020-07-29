@@ -6,9 +6,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using MotoPro.Models.Database;
 using MotoPro.Services;
 using MotoPro.Services.Interfaces;
+using MotoPro.Web.Extensions;
 
 namespace MotoPro.Web
 {
@@ -50,6 +52,7 @@ namespace MotoPro.Web
                 app.UseHsts();
             }
 
+            app.ConfigureExceptionHandler();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())
