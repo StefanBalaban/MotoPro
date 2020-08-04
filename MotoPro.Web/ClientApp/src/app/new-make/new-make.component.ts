@@ -8,6 +8,7 @@ import { HttpClient } from "@angular/common/http";
   styleUrls: ['./new-make.component.css']
 })
 export class NewMakeComponent {
+  private make :IMake;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
 
@@ -18,13 +19,16 @@ export class NewMakeComponent {
   });
 
   onSubmit() {
-    let make = {
+    this.make = {
       id: 0,
       name: this.form.value.name
     } as IMake;
-    this.http.post(this.baseUrl + 'api/makes', make).subscribe(
-      (res) => console.log(res),
+    this.http.post(this.baseUrl + 'api/makes', this.make).subscribe(
+      (res) => {
+        this.make = res as IMake;
+      } ,
       (res) => console.log(res));
+    this.form.reset();
   }
 
 }

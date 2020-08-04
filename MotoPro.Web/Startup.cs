@@ -2,14 +2,10 @@ using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using MotoPro.Models.Database;
-using MotoPro.Services;
-using MotoPro.Services.Interfaces;
+using MotoPro.IoC;
 using MotoPro.Web.Extensions;
 
 namespace MotoPro.Web
@@ -32,10 +28,8 @@ namespace MotoPro.Web
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-            services.AddDbContext<MotoProDbContext>();
+            DependencyContainer.RegisterServices(services);
             services.AddAutoMapper(typeof(Startup));
-            services.AddTransient<IMakeServices, MakeServices>();
-            services.AddTransient<IFeatureServices, FeatureServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace MotoPro.Models.Migrations
+namespace MotoPro.Data.Migrations
 {
     public partial class Initial : Migration
     {

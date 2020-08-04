@@ -32,6 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MotoPro.IoC\MotoPro.IoC.csproj" />
     <ProjectReference Include="..\MotoPro.Models\MotoPro.Models.csproj" />
     <ProjectReference Include="..\MotoPro.Services\MotoPro.Services.csproj" />
   </ItemGroup>

@@ -5,7 +5,7 @@ using MotoPro.Services.Dto;
 
 namespace MotoPro.Services.Interfaces
 {
-    public interface IMakeServices : ICrudServices<MakeDto>
+    public interface IModelServices : ICrudServices<ModelDto>
     {
     }
 }

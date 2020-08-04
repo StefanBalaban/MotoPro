@@ -1,6 +1,6 @@
 ﻿namespace MotoPro.Models
 {
-    public class Model
+    public class Model : IBaseModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

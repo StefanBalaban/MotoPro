@@ -1,53 +1,68 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using MotoPro.Models.Database;
+﻿using AutoMapper;
+using MotoPro.Models;
 using MotoPro.Services.Dto;
 using MotoPro.Services.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MotoPro.Services
 {
     public class FeatureServices : IFeatureServices
     {
-        private MotoProDbContext _motoProDbContext;
+        private IAsyncRepository<Feature> _dbContext;
         private IMapper _mapper;
-        public FeatureServices(IMapper mapper, MotoProDbContext motoProDbContext)
+
+        public FeatureServices(IMapper mapper, IAsyncRepository<Feature> dbContext)
         {
             _mapper = mapper;
-            _motoProDbContext = motoProDbContext;
-        }
-        public async Task<IEnumerable<Feature>> GetAsync()
-        {
-            return _mapper.Map<List<Feature>>(await _motoProDbContext.Features.ToListAsync());
+            _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<Feature>> GetAsync(Feature t)
+        public async Task<IEnumerable<FeatureDto>> GetAsync()
         {
-            throw new NotImplementedException();
+            return _mapper.Map<List<FeatureDto>>(await _dbContext.ListAllAsync());
         }
 
-        public async Task<Feature> GetAsync(int id)
+        public async Task<IEnumerable<FeatureDto>> GetAsync(FeatureDto t)
         {
-            throw new NotImplementedException();
+            if (t == null) throw new ArgumentNullException(nameof(t));
+            var feature = _mapper.Map<Feature>(t);
+            return _mapper.Map<List<FeatureDto>>(
+                (await _dbContext.ListAllAsync())
+                    .Where(x => x.Name == feature.Name));
         }
 
-        public async Task<Feature> PostAsync(Feature t)
+        public async Task<FeatureDto> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<FeatureDto>(await _dbContext.GetByIdAsync(id));
         }
 
-        public async Task<Feature> PutAsync(Feature t)
+        public async Task<FeatureDto> PostAsync(FeatureDto t)
         {
-            throw new NotImplementedException();
+            if (t == null) throw new ArgumentNullException(nameof(t));
+            var feature = _mapper.Map<Feature>(t);
+            await _dbContext.AddAsync(feature);
+            return _mapper.Map<FeatureDto>(feature);
         }
 
-        public async Task<bool> DeleteAsync(Feature t)
+        public async Task<FeatureDto> PutAsync(FeatureDto t)
         {
-            throw new NotImplementedException();
+            if (t == null) throw new ArgumentNullException(nameof(t));
+            var feature = _mapper.Map<Feature>(t);
+            var featureInDb = await _dbContext.GetByIdAsync(feature.Id);
+            featureInDb.Name = feature.Name;
+            await _dbContext.UpdateAsync();
+            return _mapper.Map<FeatureDto>(feature);
         }
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var featureInDb = await _dbContext.GetByIdAsync(id);
+            if (featureInDb == null) return false;
+            await _dbContext.DeleteAsync(featureInDb);
+            return true;
+        }
+
     }
 }

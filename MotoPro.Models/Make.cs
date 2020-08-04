@@ -2,7 +2,7 @@
 
 namespace MotoPro.Models
 {
-    public class Make
+    public class Make : IBaseModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

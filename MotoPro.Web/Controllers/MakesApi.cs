@@ -11,12 +11,11 @@ using MotoPro.Services.Interfaces;
 
 namespace MotoPro.Web.Controllers
 {
-    
     [Route("api/makes")]
     [ApiController]
     public class MakesApi : ControllerBase
     {
-        private IMakeServices _makeServices;
+        private readonly IMakeServices _makeServices;
 
         public MakesApi(IMakeServices makeServices)
         {
@@ -24,35 +23,42 @@ namespace MotoPro.Web.Controllers
         }
         // GET: api/<MakesApi>
         [HttpGet]
-        public async Task<IEnumerable<Make>> Get()
+        public async Task<IActionResult> Get()
         {
-            return await _makeServices.GetAsync();
+            return Ok(await _makeServices.GetAsync());
         }
 
-        // GET api/<MakesApi>/5
+        // GET api/<MakeApi>/5
         [HttpGet("{id}")]
-        public async Task<Make> Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            return await _makeServices.GetAsync(id);
+            var make = await _makeServices.GetAsync(id);
+            if (make == null) return NotFound();
+            return Ok(make);
         }
-
         // POST api/<MakesApi>
         [HttpPost]
-        public async Task<Make> Post([FromBody] Make make)
+        public async Task<IActionResult> Get([FromBody] MakeDto make)
         {
-            return await _makeServices.PostAsync(make);
+            return Ok(await _makeServices.PostAsync(make));
         }
 
         // PUT api/<MakesApi>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody] MakeDto makeDto)
         {
+            var make = await _makeServices.PutAsync(makeDto);
+            if (make == null) return NotFound();
+            return Ok(make);
         }
 
         // DELETE api/<MakesApi>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            var make = await _makeServices.DeleteAsync(id);
+            if (!make) return NotFound();
+            return Ok(make);
         }
     }
 }

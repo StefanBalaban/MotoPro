@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MotoPro.Models.Database;
+using MotoPro.Data;
 
 namespace MotoPro.Models.Migrations
 {
-    [DbContext(typeof(MotoProDbContext))]
+    [DbContext(typeof(AppDbContext))]
     partial class MotoProDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

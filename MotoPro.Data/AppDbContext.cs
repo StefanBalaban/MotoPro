@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using MotoPro.Models;
 
-namespace MotoPro.Models.Database
+namespace MotoPro.Data
 {
-    public class MotoProDbContext : DbContext
+    public class AppDbContext : DbContext
     {
-        //public MotoProDbContext(DbContextOptions<MotoProDbContext> options)
-        //    : base(options)
-        //{ }
 
         public DbSet<Make> Makes { get; set; }
         public DbSet<Model> Models { get; set; }

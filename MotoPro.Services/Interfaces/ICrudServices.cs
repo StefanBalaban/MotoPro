@@ -12,6 +12,6 @@ namespace MotoPro.Services.Interfaces
         Task<T> GetAsync(int id);
         Task<T> PostAsync(T t);
         Task<T> PutAsync(T t);
-        Task<bool> DeleteAsync(T t);
+        Task<bool> DeleteAsync(int id);
     }
 }
